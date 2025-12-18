@@ -31,7 +31,7 @@ import {
   } from "@/components/ui/dropdown-menu"
 
 import { Button } from "@/components/ui/button"
-import { ChevronDownIcon, SearchIcon } from "lucide-react"
+import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, PlusCircleIcon, SearchIcon } from "lucide-react"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -69,37 +69,40 @@ export function DataTable<TData, TValue>({
   })
 
   return (
-    <div>
+    <div className="bg-white rounded-[8px] shadow-lg border border-primary/20 font-sans font-medium text-neutral-800">
     
-        <div className="flex items-center py-4">
-            
-        <Input
-          placeholder="Search..."
-          value={(table.getColumn("status")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("status")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 py-4 px-[8px]">
+          <div className="flex flex-wrap items-center gap-2">
+            <Input
+              placeholder="Search..."
+              value={(table.getColumn("status")?.getFilterValue() as string) ?? ""}
+              onChange={(event) =>
+                table.getColumn("status")?.setFilterValue(event.target.value)
+              }
+              className="w-full lg:max-w-sm px-[8px] py-[5px] rounded-lg shadow-sm border:none"
+            />
 
-        <div className="flex items-center gap-2 border rounded-lg shadow-sm px-[8px] py-[5px] ml-2 cursor-pointer">
-            <span className="text-sm text-foreground font-sans font-medium"> All Categories</span>
-            <ChevronDownIcon className="w-4 h-4 pt-[3px] text-muted-foreground" />
-        </div>
-        <div className="flex items-center gap-2 border rounded-lg shadow-sm px-[8px] py-[5px] ml-2 cursor-pointer">
-            <span className="text-sm text-foreground font-sans font-medium"> Pending </span>
-            <ChevronDownIcon className="w-4 h-4 pt-[3px] text-muted-foreground" />
-        </div>
-        <div className="flex items-center gap-2 border rounded-lg shadow-sm px-[8px] py-[5px] ml-2 cursor-pointer">
-            <span className="text-sm text-foreground font-sans font-medium"> Filters </span>
-            <ChevronDownIcon className="w-4 h-4 pt-[3px] text-muted-foreground" />
-        </div>
-           <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Columns
-            </Button>
-          </DropdownMenuTrigger>
+            <div className="flex items-center gap-2 border rounded-lg shadow-sm px-[8px] py-[5px] cursor-pointer">
+                <span className="text-sm text-foreground font-sans font-medium"> All Categories</span>
+                <ChevronDownIcon className="w-4 h-4 pt-[3px] text-muted-foreground" />
+            </div>
+            <div className="flex items-center gap-2 border rounded-lg shadow-sm px-[8px] py-[5px] cursor-pointer">
+                <span className="text-sm text-foreground font-sans font-medium"> Pending </span>
+                <ChevronDownIcon className="w-4 h-4 pt-[3px] text-muted-foreground" />
+            </div>
+            <div className="flex items-center gap-2 border rounded-lg shadow-sm px-[8px] py-[5px] cursor-pointer">
+                <span className="text-sm text-foreground font-sans font-medium"> Filters </span>
+                <ChevronDownIcon className="w-4 h-4 pt-[3px] text-muted-foreground" />
+            </div>
+          </div>
+          
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" className="w-full lg:w-auto text-sm rounded-[6px] text-foreground font-sans font-light shadow-lg bg-[#423636] text-white">
+                <PlusCircleIcon className="w-4 h-4 text-white" />
+                Add Transaction
+              </Button>
+            </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             {table
               .getAllColumns()
@@ -123,7 +126,7 @@ export function DataTable<TData, TValue>({
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-    <div className="overflow-hidden rounded-md border">
+    <div className="overflow-hidden rounded-md ">
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -168,22 +171,22 @@ export function DataTable<TData, TValue>({
       </Table>
    
     </div>
-    <div className="flex items-center justify-end space-x-2 py-4">
+    <div className="flex items-center justify-end space-x-2 py-4 px-[5px]">
         <Button
-          variant="outline"
+          variant="ghost"
           size="sm"
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
         >
-          Previous
+          <ChevronLeftIcon className="w-4 h-4" />
         </Button>
         <Button
-          variant="outline"
+          variant="ghost"
           size="sm"
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
         >
-          Next
+          <ChevronRightIcon className="w-4 h-4 "  />
         </Button>
       </div>
     </div>
