@@ -154,7 +154,7 @@ export function DataTable<TData, TValue>({
                 data-state={row.getIsSelected() && "selected"}
               >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
+                  <TableCell key={cell.id} className="px-[20px]">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
@@ -171,12 +171,16 @@ export function DataTable<TData, TValue>({
       </Table>
    
     </div>
-    <div className="flex items-center justify-end space-x-2 py-4 px-[5px]">
+    <div className="flex items-center justify-end space-x-2 py-2 border-t border-border px-[5px]">
         <Button
           variant="ghost"
           size="sm"
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
+
+
+
+          className="border  rounded-[6px]  "
         >
           <ChevronLeftIcon className="w-4 h-4" />
         </Button>
@@ -185,6 +189,7 @@ export function DataTable<TData, TValue>({
           size="sm"
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
+          className="border  rounded-[6px] "
         >
           <ChevronRightIcon className="w-4 h-4 "  />
         </Button>

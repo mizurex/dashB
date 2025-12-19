@@ -1,11 +1,12 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { MoreHorizontal } from "lucide-react"
+import { MoreHorizontal, TrendingUp, CheckCircle2, Clock, AlertCircle, RefreshCw, TriangleAlert, Loader, CircleX } from "lucide-react"
 import { ArrowUpDown } from "lucide-react"
 import { Checkbox } from "@/components/ui/checkbox"
  
 import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -77,7 +78,40 @@ export const columns: ColumnDef<Payment>[] = [
       },
   {
     accessorKey: "status",
-    header: "Status",
+    header: (status) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => status.column.toggleSorting(status.column.getIsSorted() === "asc")}
+        >
+          Status
+          <TrendingUp className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    cell: ({ row }) => {
+      const status = row.getValue("status") as string
+      const variantMap: Record<string, "success" | "processing" | "pending" | "failed"> = {
+        success: "success",
+        processing: "processing",
+        pending: "pending",
+        failed: "failed",
+      }
+
+      const iconMap: Record<string, React.ReactNode> = {
+        success: <CheckCircle2 className="mr-1 h-3 w-3" />,
+        processing: <Loader className="mr-1 h-3 w-3 animate-spin" />,
+        pending: <TriangleAlert className="mr-1 h-3 w-3" />,
+        failed: <CircleX className="mr-1 h-3 w-3" />,
+      }
+
+      return (
+        <Badge variant={variantMap[status] || "default"} className="capitalize flex items-center">
+          {iconMap[status]}
+          {status}
+        </Badge>
+      )
+    },
   },
   {
     accessorKey: "email",
@@ -95,7 +129,7 @@ export const columns: ColumnDef<Payment>[] = [
   },
   {
     accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
+    header: () => <div className="text-right pr-[12px]">Amount</div>,
     cell: ({ row }) => {
       const amount = parseFloat(row.getValue("amount"))
       const formatted = new Intl.NumberFormat("en-US", {
@@ -103,7 +137,7 @@ export const columns: ColumnDef<Payment>[] = [
         currency: "USD",
       }).format(amount)
  
-      return <div className="text-right font-medium">{formatted}</div>
+      return <div className="text-right pr-[4px] font-medium">{formatted}</div>
     },
   },
 ]

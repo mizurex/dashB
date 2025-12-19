@@ -1,4 +1,4 @@
-import { SearchIcon, Menu } from "lucide-react";
+import { SearchIcon, Menu, PanelLeftClose, CircleUser } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 
@@ -8,17 +8,25 @@ interface HeaderProps {
 
 export default function Header({ onMenuClick }: HeaderProps) {
   return (
-    <header className="flex min-h-[64px] w-full items-center justify-between dark:border-slate-700 dark:bg-slate-800 px-4 py-2 font-sans font-medium">
+    <header className="flex min-h-[45px] w-full items-center justify-between dark:border-slate-700 dark:bg-slate-800  font-sans font-medium border-b border-border  shadow-xs "> 
       {/* Left Side */}
-      <div className="flex items-center gap-2 flex-1 min-w-0 mr-2">
-        <button 
+      <div className="flex items-center gap-2 flex-1 min-w-0 mr-2 pl-[8px]  ">
+      <button 
           className="lg:hidden p-2 -ml-2 flex-shrink-0" 
           onClick={onMenuClick}
         >
-          <Menu className="h-6 w-6" />
+          <PanelLeftClose className="size-5 text-foreground pt-[4px] cursor-pointer " />
         </button>
+         <div>
+        <h1 className="text-base font-inter pb-1 pl-0 pt-2 text-left lg:text-left text-muted-foreground hidden md:block">Dashboard <span className="text-foreground">{" | "}</span>  <span className="text-foreground">Transactions</span></h1>
+        </div>
+      
         {/* Search Bar */}
-        <div className="bg-[#f9f9f9] flex items-center gap-2 border border-border rounded-[6px] shadow-sm py-1 px-2 flex-1 max-w-[300px] min-w-0">
+    
+
+     
+      </div>
+      <div className="bg-[#f9f9f9] flex items-center gap-2 border border-border rounded-[6px] shadow-sm py-1 px-2 flex-1 max-w-[300px] min-w-0 mr-[8px]">
           <div className="flex-shrink-0">
             <svg
               width="18"
@@ -38,9 +46,10 @@ export default function Header({ onMenuClick }: HeaderProps) {
             className="bg-transparent border-none outline-none text-sm w-full min-w-0"
           /> 
         </div>
-      </div>
-  
       <div className="flex items-center gap-2 flex-shrink-0">
+        <span className=" rounded-[6px] shadow-xl">
+        <CircleUser className="size-6 text-neutral-500" />
+        </span>
         <button className="p-1 hover:bg-gray-100 rounded-full transition-colors">
           <svg
             width="32"

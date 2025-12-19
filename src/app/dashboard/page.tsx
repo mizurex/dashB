@@ -5,8 +5,10 @@ import Sidebar from "@/components/side-bar"
 import { columns, Payment } from "./columns"
 import { DataTable } from "./data-table"
 import Header from "@/components/header"
-import { Form, Menu } from "lucide-react"
+import { Form, Menu, Zap } from "lucide-react"
 import { useState, useEffect } from "react"
+import { ClippedAreaChart } from "@/components/ui/clipped-area-chart";
+import { ValueLineBarChart } from "@/components/ui/value-line-bar-chart";
 
 
 async function getData(): Promise<Payment[]> {
@@ -54,8 +56,13 @@ async function getData(): Promise<Payment[]> {
       status: "failed",
       email: "sassy.sasquatch@example.com",
     },
-    
-    
+    {
+      id: "wp5810lj",
+      amount: 75,
+      status: "failed",
+      email: "sassy.sasquatch@example.com",
+    },
+  
    
   ]
 }
@@ -79,18 +86,18 @@ export default function DemoPage() {
         >
             
           
-         <div className="bg-white container max-w-[95%] lg:max-w-[78rem] px-4 lg:px-6 pb-4 pt-[4px] min-h-[calc(110vh-3rem)] lg:h-[45rem] rounded-[6px] mx-auto mt-6">
+         <div className="bg-white container max-w-[95%] lg:max-w-[78rem] px-4 lg:px-6 pb-4 pt-[4px] min-h-[calc(180vh-3rem)] lg:h-[45rem] rounded-[6px] mx-auto mt-6">
          <Header onMenuClick={() => setIsMobileMenuOpen(true)}/>
-         <div className=" ">
-            <h1 className="text-xl lg:text-2xl font-medium text-foreground font-sans pb-1 pl-0 lg:pl-7 pt-2 text-center lg:text-left">Transactions</h1>
+         <div className=" pb-1  ">
+            
          </div>
-         <div className="mt-2 mx-auto bg-muted-foreground/9 w-full lg:w-[72rem] px-[4px] pb-[8px] rounded-[6px]">
+         <div className="mt-7 mx-auto bg-muted-foreground/9 w-full lg:w-[66rem] px-[4px] pb-[8px] rounded-[6px]">
             <div className="flex items-center gap-2 pl-[8px]">
             <span>
-            <Form className="size-3 text-neutral-400" />
+            <Form className="size-4 text-muted-foreground" />
            </span>
-                <span>
-                      <h1 className="text-sm font-medium text-foreground font-sans py-[12px]">Transactions</h1>   
+                <span className=" py-[12px]">
+                      <h1 className="text-sm font-medium text-foreground px-[2px] font-sans border-b border-dashed border-muted-foreground/50">Transactions</h1>   
                 </span>
           
               
@@ -101,6 +108,37 @@ export default function DemoPage() {
             </div>
          </div>
       
+     <div className="mt-7 mx-auto bg-muted-foreground/9 w-full lg:w-[66rem] px-[4px] pb-[8px] rounded-[6px]">
+      <div className="flex items-center gap-2 py-[12px]">
+        <span>
+          <Zap className="size-4 text-muted-foreground" />
+        </span>
+        <h1 className="text-sm font-medium text-foreground font-sans px-[2px] border-b border-dashed border-muted-foreground/50">
+          Performance{" "}
+          <span className="text-muted-foreground text-xs font-medium">
+            vs. last quarter
+          </span>
+        </h1>
+      </div>
+      <div
+        className="
+          w-full
+          grid
+          gap-2
+          items-stretch
+          grid-cols-1
+          sm:grid-cols-1
+          lg:grid-cols-[2fr_1fr]
+          "
+      >
+        <div className="w-full flex-grow">
+          <ClippedAreaChart />
+        </div>
+        <div className="w-full flex flex-col">
+          <ValueLineBarChart />
+        </div>
+      </div>
+    </div>
     </div> 
         </div>
          
